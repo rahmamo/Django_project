@@ -1,10 +1,12 @@
+{%load static%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="login.css">
+      <link rel="stylesheet" href="{% static 'login.css'%}">
+    <script src="{% static 'login.js'%}"></script>
     <title>register</title>
 </head>
 <body class="main">
@@ -21,10 +23,11 @@
                             <span> Don't have an account? <a class="liked_account" href="./register.html">Sign up </a> </span>  
                         </div>  
                         <hr>
-                    <form class="input" action=" " method="post" onsubmit="validateForm(event,this)">    
+                    <form class="input" action="/log" method="post" >
+                        {% csrf_token %}
                         <div >
-                            <input type="email" placeholder="Email"  required>
-                            <input type="password"  placeholder="Password" required>
+                            <input type="text" placeholder="username" name="username" required>
+                            <input type="password"  placeholder="Password"  name="password" required>
                             <button type="submit" class="login_button" >Login</button>
                         </div>
                             

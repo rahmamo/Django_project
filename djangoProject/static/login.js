@@ -13,6 +13,7 @@ function validateForm(ev,ele){
     l_test=pattern_name.test(Last_name);
     m_test=pattern_email.test(Email);
     n_test=pattern_mobile.test(Mobile_Number);
+    consel.log("aa")
     var p_test=false
     if(Password == Confirm_Password){ p_test=true }
     if(f_test == true && l_test == true && m_test == true && n_test == true && p_test == true ){

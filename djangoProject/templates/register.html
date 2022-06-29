@@ -1,11 +1,12 @@
+{%load static%}
 <!DOCTYPE html>
-<html lang="en">
+<html >
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="login.css">
-    <script src="./login.js"></script>
+    <link rel="stylesheet" href="{% static 'login.css'%}">
+    <script src="{% static 'login.js'%}"></script>
     <title>register</title>
 </head>
 <body class="main">
@@ -24,19 +25,21 @@
                         <hr>
                         <label id="error"></label>
                         
-                    <form class="input" action="./login.html" method="post" onsubmit="validateForm(event,this)">    
+                    <form class="input"  action="/R" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <h3>{{error}}</h3>
                         <div >
-                            <input type="text"   placeholder="Frist name" required >
-                            <input type="text"  placeholder="Last name" required>
-                            <input type="email" placeholder="Email" required>
-                            <input type="password"  placeholder="Password" required>
-                            <input type="password"  placeholder="Confirm Password" required>
-                            <input type="text"  placeholder="Mobile Number"  required>
+                            <input type="text"   placeholder="user name"  name="username" required >
+                            <input type="text"   placeholder="Frist name" name="first_name" required >
+                            <input type="text"  placeholder="Last name" name="last_name" required>
+                            <input type="email" placeholder="Email" name="email" required>
+                            <input type="password"  placeholder="Password" name="password" required>
+                            <input type="password"  placeholder="Confirm Password"  required>
+                            <input type="text"  placeholder="Mobile Number"  name="phone_number" required>
                             <div class="select_image">
                             <label > select image </label>
-                            <input type="file" id="img" name="img" accept="image/*" >
+                            <input type="file" id="img" name="img" accept="image/*" name="profile_pic">
                             </div>
-                            <label>active account</label>
                             <button type="submit" class="login_button" >Sign up</button>
                         </div>
                             
