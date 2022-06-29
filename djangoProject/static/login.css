@@ -1,0 +1,86 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+.main{
+    display: flex;
+    background-color:#f1f1f1 ;
+}
+
+.form_log{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: 50%;
+    background-color: rgb(240, 240, 240);;
+    margin: 100px  0px 0px 400px;
+}
+.form{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: 40%;
+    background-color: rgb(240, 240, 240);;
+    margin: 20px  0px 0px 400px;
+}
+.border1{
+    border:  2px solid rgb(206, 205, 205);
+    background-color: white;
+}
+.imginsta {
+    text-align: center;
+    margin: 24px 0 12px 0;
+    /* position: relative; */
+  }
+
+  input[type=text], input[type=password] ,input[type=email]{
+    width: 80%;
+    padding: 12px 20px;
+    margin: 1% 10%;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 4px;
+    outline: none;
+  }
+  .select_image{
+    width: 80%;
+    padding: 12px 20px;
+    margin: 1% 10%;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 4px;
+    outline: none;
+  }
+ .login_button{
+   background-color: #259d48;
+   width: 80%;
+   border: 0px;
+   margin: 1% 10%;
+   height: 30px;
+   border-radius: 4px;
+ }
+
+
+.sing_up_Log_in{
+    display: flex;
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    margin: 10px 0px;
+}
+
+.liked_account{
+
+    color: #55ACEE;
+    text-decoration: none;
+}
+
+.input{
+    margin-top: 30px;
+}
+
+.footer_form{
+    color: grey ;
+    text-align: center;
+   
+    margin:15px ;
+}
+

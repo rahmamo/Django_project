@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="login.css">
+    <script src="./login.js"></script>
+    <title>register</title>
+</head>
+<body class="main">
+    <div >
+           
+          <div class="form" >
+              <div class="border1" >
+                  
+             
+                        <div class= "imginsta">
+                                <h1>Sign up</h1>
+                        </div>
+                        <div class="sing_up_Log_in">
+                            <span> Have an account? <a class="liked_account" href="./login.html">Log in</a> </span>  
+                        </div>  
+                        <hr>
+                        <label id="error"></label>
+                        
+                    <form class="input" action="./login.html" method="post" onsubmit="validateForm(event,this)">    
+                        <div >
+                            <input type="text"   placeholder="Frist name" required >
+                            <input type="text"  placeholder="Last name" required>
+                            <input type="email" placeholder="Email" required>
+                            <input type="password"  placeholder="Password" required>
+                            <input type="password"  placeholder="Confirm Password" required>
+                            <input type="text"  placeholder="Mobile Number"  required>
+                            <div class="select_image">
+                            <label > select image </label>
+                            <input type="file" id="img" name="img" accept="image/*" >
+                            </div>
+                            <label>active account</label>
+                            <button type="submit" class="login_button" >Sign up</button>
+                        </div>
+                            
+                    </form>  
+                    <div class="footer_form">
+                        <p>By continuing, you agree to the GoFundMe terms and acknowledge receipt of our privacy notice. </p>
+                    
+                    </div>   
+              </div >  
+              
+          </div> 
+            
+    </div>  
+</body>
+</html>
