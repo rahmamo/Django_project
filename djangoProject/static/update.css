@@ -8,15 +8,9 @@
     background-color:#f1f1f1 ;
 }
 
-.form_log{
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    width: 50%;
-    background-color: rgb(240, 240, 240);;
-    margin: 100px  0px 0px 400px;
-}
 .form{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    width: 40%;
+    width: 90%;
     background-color: rgb(240, 240, 240);;
     margin: 20px  0px 0px 400px;
 }
@@ -39,15 +33,7 @@
     border-radius: 4px;
     outline: none;
   }
-  .select_image{
-    width: 80%;
-    padding: 12px 20px;
-    margin: 1% 10%;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-    border-radius: 4px;
-    outline: none;
-  }
+ 
  .login_button{
    background-color: #259d48;
    width: 80%;
@@ -67,22 +53,13 @@
     margin: 10px 0px;
 }
 
-.liked_account{
 
-    color: #55ACEE;
-    text-decoration: none;
-}
 
 .input{
     margin-top: 30px;
     padding:10px;
 }
 
-.footer_form{
-    color: grey ;
-    text-align: center;
-   
-    margin:15px ;
-}
+
 
 

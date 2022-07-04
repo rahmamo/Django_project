@@ -20,26 +20,16 @@
                                 <h1>Sign up</h1>
                         </div>
                         <div class="sing_up_Log_in">
-                            <span> Have an account? <a class="liked_account" href="./login.html">Log in</a> </span>  
+                            <span> Have an account? <a class="liked_account" href="http://127.0.0.1:8000/log">Log in</a> </span>
                         </div>  
                         <hr>
                         <label id="error"></label>
                         
-                    <form class="input"  action="/R" method="post" enctype="multipart/form-data">
+                    <form class="input"  action="" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <h3>{{error}}</h3>
                         <div >
-                            <input type="text"   placeholder="user name"  name="username" required >
-                            <input type="text"   placeholder="Frist name" name="first_name" required >
-                            <input type="text"  placeholder="Last name" name="last_name" required>
-                            <input type="email" placeholder="Email" name="email" required>
-                            <input type="password"  placeholder="Password" name="password" required>
-                            <input type="password"  placeholder="Confirm Password"  required>
-                            <input type="text"  placeholder="Mobile Number"  name="phone_number" required>
-                            <div class="select_image">
-                            <label > select image </label>
-                            <input type="file" id="img" name="img" accept="image/*" name="profile_pic">
-                            </div>
+                             {{form.as_p}}
                             <button type="submit" class="login_button" >Sign up</button>
                         </div>
                             

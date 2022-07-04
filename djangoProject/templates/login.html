@@ -20,12 +20,13 @@
                                 <h1>Log in</h1>
                         </div>
                         <div class="sing_up_Log_in">
-                            <span> Don't have an account? <a class="liked_account" href="./register.html">Sign up </a> </span>  
+                            <span> Don't have an account? <a class="liked_account" href="http://127.0.0.1:8000/Register">Sign up </a> </span>
                         </div>  
                         <hr>
                     <form class="input" action="/log" method="post" >
                         {% csrf_token %}
                         <div >
+                            <h3>{{error}}</h3>
                             <input type="text" placeholder="username" name="username" required>
                             <input type="password"  placeholder="Password"  name="password" required>
                             <button type="submit" class="login_button" >Login</button>
