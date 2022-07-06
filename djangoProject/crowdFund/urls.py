@@ -18,7 +18,8 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth.views import LoginView, LogoutView
-from .views import Login,Register,home,Register,myprofile,updateprofile,deleteprofile,surdeleteprofile
+from .views import Login,Register,home,Register,myprofile,updateprofile,\
+    deleteprofile,surdeleteprofile,createproject,myProjects,addimage,choceproject,addtag,allProjects,viewProjects
 
 urlpatterns = [
     path('home', home),
@@ -28,7 +29,12 @@ urlpatterns = [
     path('updateprofile',updateprofile),
     path('deleteprofile',deleteprofile),
     path('surdeleteprofile',surdeleteprofile),
+    path('createproject',createproject),
+    path('myProjects',myProjects),
+    path('addimage',addimage),
+    path('choceproject',choceproject),
+    path('addtag', addtag),
+    path('allProjects', allProjects),
+    path('viewProjects/<projectTitle>', viewProjects),
     path('logout', LogoutView.as_view(template_name='log_out.html')),
-
-
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

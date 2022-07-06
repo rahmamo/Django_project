@@ -1,12 +1,16 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponseRedirect ,HttpResponse
-from .models import Myuser
+from .models import Myuser,projects,imagesprject,TagProject
 from .forms import *
 
 def home(request):
     return render(request, 'home.html')
 
 def surdeleteprofile(request):
+    return render(request, 'surdelete.html')
+
+def allproject(request):
+
     return render(request, 'surdelete.html')
 
 
@@ -83,3 +87,107 @@ def updateprofile(request):
             else:
                 return HttpResponse("erorr")
     return redirect("/log")
+def addimages(request):
+    return HttpResponse("done")
+
+def createproject(request):
+    if (request.session.get('username') != None):
+        if request.method == 'GET':
+            form = CreateProject()
+            return render(request, 'create_project.html', {'form': form})
+        else:
+            form = CreateProject(request.POST,request.FILES)
+            if form.is_valid():
+                form.save()
+                user = Myuser.objects.get(username=request.session.get('username'))
+                project = projects.objects.get(title=request.POST['title'])
+                if (project):
+                    project.create = user.username
+                    title = project.title
+                    request.session['Project'] = project.title
+                    project.save()
+                else:
+                    return render(request, 'project.html')
+                return redirect("/choceproject")
+    else:
+        return redirect("/log")
+
+
+def myProjects(request):
+    if (request.session.get('username') != None):
+        user = Myuser.objects.get(username=request.session.get('username'))
+        project = projects.objects.filter(create=user.username)
+        if project:
+               context = {}
+               context['projects'] = project
+               return render(request, 'myproject.html', context)
+        else:
+            return  HttpResponse("not found project")
+    else:
+        return redirect("/log")
+
+def addimage(request):
+    if (request.session.get('username') != None):
+        if request.method == 'GET':
+            form = createImage()
+            return render(request, 'addimage.html', {'form': form})
+        else:
+            form = createImage(request.POST, request.FILES)
+            if form.is_valid():
+                project = projects.objects.get(title=request.POST['nameproject'])
+                print()
+                if (project):
+                    if (project.create == request.session.get('username')):
+                               form.save()
+                               return redirect("/choceproject")
+                    else:
+                        return HttpResponse("not found project")
+                else:
+                    return HttpResponse("not found project")
+    else:
+        return redirect("/log")
+
+
+def choceproject(request):
+    return render(request, 'project.html')
+
+def addtag(request):
+    if (request.session.get('username') != None):
+        if request.method == 'GET':
+            form = CreateTag()
+            return render(request, 'addtag.html', {'form': form})
+        else:
+            form = CreateTag(request.POST, request.FILES)
+            if form.is_valid():
+                project = projects.objects.get(title=request.POST['nameproject'])
+                print()
+                if (project):
+                    if (project.create == request.session.get('username')):
+                               form.save()
+                               return redirect("/choceproject")
+                    else:return HttpResponse("not found project")
+                else:
+                    return HttpResponse("not found project")
+    else:
+        return redirect("/log")
+
+def allProjects(request):
+    project = projects.objects.all()
+    context = {}
+    context['projects'] = project
+    return render(request, 'allProjects.html', context)
+
+
+def viewProjects(request, projectTitle):
+    project = projects.objects.get(title=projectTitle)
+    context = {}
+    context['projects'] = project
+    imgproject = imagesprject.objects.filter(nameproject=projectTitle)
+    context['imgprojects'] = imgproject
+
+    Tagprojects = TagProject.objects.filter(nameproject=project.title)
+    for Tagproject in Tagprojects:
+        similar = TagProject.objects.filter(tags=Tagproject.tags)
+        context['similars'] = similar
+
+    return render(request, 'viewproject.html', context)

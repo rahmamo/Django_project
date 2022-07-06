@@ -37,3 +37,33 @@ class EForm(ModelForm):
             'country',
             'Birthdate',
         )
+
+
+class CreateProject(ModelForm):
+    class Meta:
+        model = projects
+        fields = (
+            'title',
+            'category',
+            'total_target',
+            'start_date',
+            'end_date',
+            'details',
+            'project_pic_main',
+        )
+
+class createImage(ModelForm):
+    class Meta:
+        model = imagesprject
+        fields = (
+            'nameproject',
+            'image',
+        )
+
+class CreateTag(ModelForm):
+    class Meta:
+        model = TagProject
+        fields = (
+            'nameproject',
+            'tags',
+        )
