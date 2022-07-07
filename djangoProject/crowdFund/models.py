@@ -24,6 +24,8 @@ class Myuser(models.Model):
     country = models.CharField(max_length=20,null=True )
     facebook_profile = models.CharField(null=True,max_length=20)
     donations = models.IntegerField(default=0)
+    # is_verified = models.BooleanField(default=False)
+    # token = models.CharField(max_length=100, default=None)
 
 class projects(models.Model):
     project_id = models.AutoField(primary_key=True)

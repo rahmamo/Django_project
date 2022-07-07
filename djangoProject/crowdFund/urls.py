@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 from django.contrib.auth.views import LoginView, LogoutView
 from .views import Login,Register,home,Register,myprofile,updateprofile,\
     deleteprofile,surdeleteprofile,createproject,myProjects,addimage,choceproject,addtag,allProjects,viewProjects,\
-    rateProject,donate,commentproject,reportcomment,reportproject,cancel,projectCategorie,searchtage
+    rateProject,donate,commentproject,reportcomment,reportproject,cancel,projectCategorie,searchtage,highestRate,verify
 
 urlpatterns = [
     path('home', home),
@@ -46,5 +46,6 @@ urlpatterns = [
     path('projectCategorie/<name>',projectCategorie),
     path('searchtage',searchtage),
     path('highestRate', highestRate),
+    path('verify/<str:token>',verify),
     path('logout', LogoutView.as_view(template_name='log_out.html')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

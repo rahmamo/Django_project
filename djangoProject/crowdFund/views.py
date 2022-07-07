@@ -2,6 +2,10 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponseRedirect ,HttpResponse
 from .models import Myuser,projects,imagesprject,TagProject,Comment,CommentReports,ProjectReports,Categories,CategoriesProject
 from .forms import *
+import random
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 
@@ -308,3 +312,34 @@ def highestRate(request):
 #
 #     print(maxhighestRate)
 #     return render(request, 'home.html', {'highestRate':highestRate})
+#-----------------------Email Verification---------------
+# def Register(request):
+#     form = RForm()
+#     if (request.method == 'POST'):
+#         username = request.POST.get('username')
+#         email = request.POST.get('email')
+#         user = Myuser(username=username,email=email)
+#         domain_name = get_current_site(request).domain
+#         token= str(random.random()).split('.')[1]
+#         user.token =token
+#         link = f'http://{domain_name}/verify/{token}'
+#         send_mail(
+#             'Email Verification',
+#             f'please click this link {link} to verify your email',
+#             settings.EMAIL_HOST_USER,
+#             [email],
+#             fail_silently=False,
+#         )
+#         return HttpResponse('the email has be sent')
+#     return render(request,'login.html',{'form': form})
+#
+# def verify(request,token):
+#     try:
+#         user=Myuser.objects.filter(token = token)
+#         if user:
+#             user.is_verified = True
+#             msg = "your email has been verified"
+#             return render(request,'verify.html',{'msg': msg})
+#     except Exception as e:
+#         msg : e
+#         return render(request,'verify.html',{'msg':e})
