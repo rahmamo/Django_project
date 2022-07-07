@@ -1,18 +1,33 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponseRedirect ,HttpResponse
-from .models import Myuser,projects,imagesprject,TagProject
+from .models import Myuser,projects,imagesprject,TagProject,Comment,CommentReports,ProjectReports,Categories,CategoriesProject
 from .forms import *
 
+
+
 def home(request):
-    return render(request, 'home.html')
+    
+        return render(request, 'home.html',context)
+
+
+
+
+
+
+
+
 
 def surdeleteprofile(request):
-    return render(request, 'surdelete.html')
+    if (request.session.get('username') != None):
+        return render(request, 'surdelete.html')
+    else:
+        return redirect("/logout")
 
 def allproject(request):
-
-    return render(request, 'surdelete.html')
-
+    if (request.session.get('username') != None):
+         return render(request, 'surdelete.html')
+    else:
+        return redirect("/logout")
 
 def deleteprofile(request):
     Myuser.objects.filter(username=request.session['username']).delete()
@@ -20,7 +35,10 @@ def deleteprofile(request):
 
 def myprofile(request):
     if (request.session.get('username') != None):
-          return render(request, 'myprofile.html')
+          user = Myuser.objects.get(username=request.session.get('username'))
+          context = {}
+          context['user']=user
+          return render(request, 'myprofile.html',context)
     else:
         return redirect("/log")
 
@@ -178,16 +196,3 @@ def allProjects(request):
     return render(request, 'allProjects.html', context)
 
 
-def viewProjects(request, projectTitle):
-    project = projects.objects.get(title=projectTitle)
-    context = {}
-    context['projects'] = project
-    imgproject = imagesprject.objects.filter(nameproject=projectTitle)
-    context['imgprojects'] = imgproject
-
-    Tagprojects = TagProject.objects.filter(nameproject=project.title)
-    for Tagproject in Tagprojects:
-        similar = TagProject.objects.filter(tags=Tagproject.tags)
-        context['similars'] = similar
-
-    return render(request, 'viewproject.html', context)

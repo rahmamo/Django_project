@@ -19,7 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth.views import LoginView, LogoutView
 from .views import Login,Register,home,Register,myprofile,updateprofile,\
-    deleteprofile,surdeleteprofile,createproject,myProjects,addimage,choceproject,addtag,allProjects,viewProjects
+    deleteprofile,surdeleteprofile,createproject,myProjects,addimage,choceproject,addtag,allProjects,
 
 urlpatterns = [
     path('home', home),
@@ -35,6 +35,6 @@ urlpatterns = [
     path('choceproject',choceproject),
     path('addtag', addtag),
     path('allProjects', allProjects),
-    path('viewProjects/<projectTitle>', viewProjects),
+ 
     path('logout', LogoutView.as_view(template_name='log_out.html')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
