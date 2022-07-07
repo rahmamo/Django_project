@@ -52,50 +52,95 @@
      {%endfor%}
 
 </center>
-     <div class="container mt-5 mb-5">
-    <div class="card-group">
+
+          <div class="card-group">
 
       <div class="col-xl-8 col-lg-6">
         <div class="card m-2">
           <div class="card-body">
-            <h5>shere your ideas</h5>
-            <form method="post">
+            <h5>donate</h5>
+            <form method="post" action="/donate/{{projects.title}}">
               {% csrf_token %}
-              <input type="text" name="comment" style="padding: 10px; border-radius: 10px;width: 350px;"/>
-              <input type="submit"class="btn btn-success" value="Post" />
 
+              <input type="text" name="donate"  value="" style="padding: 10px; border-radius: 10px;width: 250px;"/>
+              <input type="submit"class="btn btn-success" value="donate" />
 
-              <button type="submit" class="btn btn-success"><a class =' text-white' href="/project/repcom/1">Report Comment</a></button>
               </form>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+
           </div>
         </div>
       </div>
 
 
-    <div class="col-xl-4 col-lg-6">
+    <div class="col-xl-8 col-lg-6">
       <div class="card m-2">
 
         <div class="card-body">
           <center>
           <h1 class="card-title">{{projects.title}}</h1><br>
+
             </center>
           <h5 class="card-text">total_target : {{projects.total_target}}</h5><br>
+            <h5 class="card-text">Rating : {{projects.Rating}}</h5><br>
+             <h5 class="card-text">donations : {{projects.donations}}</h5><br>
             <br>
             <p>details : {{projects.details}}</p>
             <br>
+            <center>
+            <div>
+                <h4>Rate</h4>
+                <button type="submit" class="btn btn-success"><a  class =' text-white' href="/rateProject/{{projects.title}}/1">1</a></button>
+                <button type="submit" class="btn btn-success"><a  class =' text-white' href="/rateProject/{{projects.title}}/2">2</a></button>
+                <button type="submit" class="btn btn-success"><a  class =' text-white' href="/rateProject/{{projects.title}}/3">3</a></button>
+                <button type="submit" class="btn btn-success"><a  class =' text-white' href="/rateProject/{{projects.title}}/4">4</a></button>
+                <button type="submit" class="btn btn-success"><a  class =' text-white' href="/rateProject/{{projects.title}}/5">5</a></button>
+            </div>
+            </center>
+            <br>
 
+          <button type="submit" class="btn btn-success"><a  class =' text-white' href="/reportproject/{{projects.title}}">Report</a></button>
 
-          <button type="submit" class="btn btn-success"><a  class =' text-white' href="/project/rate/1">Rate</a></button>
-          <button type="submit" class="btn btn-success"><a  class =' text-white' href="/project/rep/1">Report</a></button>
-
-          <button type="submit" class="btn btn-success"><a  class =' text-white' href="/project/del/1">Delete</a></button>
+          <button type="submit" class="btn btn-success"><a  class =' text-white' href="/cancel/{{projects.title}}">cancel</a></button>
 
         </div>
       </div>
     </div>
   </div>
   </div>
+
+
+    <div class="col-xl-8 col-lg-6 m-5">
+        <div class="card m-2">
+          <div class="card-body">
+            <h5>comment</h5>
+              {% for commit in commits %}
+              <div>
+              <p>{{commit.comment}}</p>
+              <a class =' text-white' href="/reportcomment/{{commit.comment_id}}/{{projects.title}}"><button type="submit" class="btn btn-success ">Report Comment</button></a>
+              <br>
+               </div>
+               <br>
+               <br>
+              {%endfor%}
+
+          </div>
+        </div>
+      </div>
+
+<div class="col-xl-9 col-lg-6 m-5">
+        <div class="card m-2">
+          <div class="card-body">
+            <h5>shere your ideas</h5>
+            <form method="post" action="/commentproject/{{projects.title}}">
+              {% csrf_token %}
+              <input type="text" name="comment"  value="" style="padding: 10px; border-radius: 10px;width: 350px;"/>
+              <input type="submit"class="btn btn-success" value="Post" />
+              </form>
+
+          </div>
+        </div>
+      </div>
+
 
 
 

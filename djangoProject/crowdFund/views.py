@@ -1,18 +1,30 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponseRedirect ,HttpResponse
-from .models import Myuser,projects,imagesprject,TagProject
+from .models import Myuser,projects,imagesprject,TagProject,Comment,CommentReports,ProjectReports,Categories,CategoriesProject
 from .forms import *
 
+
+
 def home(request):
-    return render(request, 'home.html')
+    if (request.session.get('username') != None):
+       
+        return render(request, 'home.html',context)
+    else:
+        return redirect("/logout")
+
+
 
 def surdeleteprofile(request):
-    return render(request, 'surdelete.html')
+    if (request.session.get('username') != None):
+        return render(request, 'surdelete.html')
+    else:
+        return redirect("/logout")
 
 def allproject(request):
-
-    return render(request, 'surdelete.html')
-
+    if (request.session.get('username') != None):
+         return render(request, 'surdelete.html')
+    else:
+        return redirect("/logout")
 
 def deleteprofile(request):
     Myuser.objects.filter(username=request.session['username']).delete()
@@ -20,7 +32,10 @@ def deleteprofile(request):
 
 def myprofile(request):
     if (request.session.get('username') != None):
-          return render(request, 'myprofile.html')
+          user = Myuser.objects.get(username=request.session.get('username'))
+          context = {}
+          context['user']=user
+          return render(request, 'myprofile.html',context)
     else:
         return redirect("/log")
 
@@ -180,14 +195,70 @@ def allProjects(request):
 
 def viewProjects(request, projectTitle):
     project = projects.objects.get(title=projectTitle)
+    commit=Comment.objects.filter(title=projectTitle)
     context = {}
     context['projects'] = project
+    context['commits']=commit
     imgproject = imagesprject.objects.filter(nameproject=projectTitle)
     context['imgprojects'] = imgproject
-
     Tagprojects = TagProject.objects.filter(nameproject=project.title)
     for Tagproject in Tagprojects:
         similar = TagProject.objects.filter(tags=Tagproject.tags)
         context['similars'] = similar
 
     return render(request, 'viewproject.html', context)
+
+
+def rateProject(request, projectTitle, rate):
+    project = projects.objects.get(title=projectTitle)
+    project.Rating = project.Rating + rate
+    project.save()
+    return HttpResponseRedirect("/viewProjects/"+project.title)
+
+
+
+def donate(request,projectTitle):
+    if(request.method == 'POST'):
+        donate = request.POST['donate']
+        project = projects.objects.get(title=projectTitle)
+        user=Myuser.objects.get(username=request.session.get('username'))
+        donateuser = int(user.donations) + int(donate)
+        donateproject = int(project.donations) + int(donate)
+        project.donations = project.donations + donateproject
+        user.donations = user.donations + donateuser
+        project.save()
+        user.save()
+        return HttpResponseRedirect("/viewProjects/"+project.title)
+    return HttpResponse("error")
+
+def commentproject(request, title):
+    if (request.method == 'POST'):
+           project=projects.objects.get(title=title)
+           Comment.objects.create(title=title,comment=request.POST['comment'],username=request.session.get('username')) ###############  user_id_id=request.session.get('id')
+           return HttpResponseRedirect("/viewProjects/"+project.title)
+    else:
+        return redirect("/log")
+def reportcomment(request, id,title):
+    print(id)
+    print(title)
+    project = projects.objects.get(title=title)
+    CommentReports.objects.create(comment_id=id,username=request.session.get('username'))
+    return HttpResponseRedirect("/viewProjects/" + project.title)
+
+def reportproject(request,title):
+    if (request.method == 'POST'):
+        project = projects.objects.get(title=title)
+        message=request.POST['report']
+        ProjectReports.objects.create(title=title,message=message, username=request.session.get('username'))
+        return HttpResponseRedirect("/viewProjects/" + project.title)
+    else:
+        return render(request,'reportproject.html')
+
+def cancel(request, title):
+    project = projects.objects.get(title=title)
+    dalete = project.donations/project.total_target
+    if( dalete < 0.25):
+        project.delete()
+        return HttpResponseRedirect("/home")
+    else:
+        return HttpResponse("can not delete")

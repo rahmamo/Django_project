@@ -30,7 +30,12 @@
                                 </li>
                             </ul>
                                  <h2>{{request.session.username}}</h2>
-                              <ul class="navbar-nav ms-auto mb-2 mb-lg-2 fs-5 fw-2 ms-3  ">
+                                <form class="d-flex mx-5" method="post" action="/searchtage">
+                                     {% csrf_token %}
+                                  <input class="form-control me-2" type="text"  name="search" value="" placeholder="Search" >
+                                  <button class="btn btn-outline-light" type="submit">Search</button>
+                               </form>
+                              <ul class="navbar-nav ms-auto mb-2 mb-lg-2 fs-5 fw-2 ms-3 ">
                               <li class="nav-item">
                                 <a class="nav-link text-light ms-3" href="http://127.0.0.1:8000/logout">Logout</a>
                               </li>
@@ -41,6 +46,42 @@
   </nav>
   <div >
   <h1>Home</h1>
+<div>
+ <center>
+     <h2>the latest projects</h2>
+ <table class="table w-75">
+  <thead>
+    <tr>
+      <th scope="col">title</th>
+      <th scope="col">details</th>
+        <th scope="col">category</th>
+        <th scope="col">image</th>
+        <th scope="col">view</th>
+
+    </tr>
+  </thead>
+  <tbody>
+
+    {% for project in projects%}
+    <tr>
+            <th scope="row">{{project.title}}</th>
+            <td>{{project.details}}</td>
+            <td>{{project.category}}</td>
+            <td><img src="{{project.project_pic_main.url}}" width="120"/></td>
+            <td><a href=/viewProjects/{{project.title}}>view</a></td>
+
+    </tr>
+ {%endfor%}
+  </tbody>
+</table>
+</center>
+</div>
+<center>
+    <h1>Categories</h1>
+    {% for Categorie in Categories%}
+    <h5> <a href="projectCategorie/{{Categorie.namecategories}}">{{Categorie.namecategories}}</a> </h5>
+    {%endfor%}
+</center>
   <footer >
                 <hr>
                 <div class=" text-white text-center p-2" style="background-color:  #259d48;">
