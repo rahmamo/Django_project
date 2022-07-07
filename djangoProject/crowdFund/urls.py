@@ -45,5 +45,6 @@ urlpatterns = [
     path('cancel/<title>',cancel),
     path('projectCategorie/<name>',projectCategorie),
     path('searchtage',searchtage),
+    path('highestRate', highestRate),
     path('logout', LogoutView.as_view(template_name='log_out.html')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

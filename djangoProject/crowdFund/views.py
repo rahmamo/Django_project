@@ -7,8 +7,41 @@ from .forms import *
 
 def home(request):
     if (request.session.get('username') != None):
-       
+        Categorie = CategoriesProject.objects.all()
+        context = {}
+        context['Categories'] = Categorie
+        project = projects.objects.all().order_by('-project_id')[:5]
+        context['projects'] = project
         return render(request, 'home.html',context)
+    else:
+        return redirect("/logout")
+
+def searchtage(request):
+    if (request.method == 'GET'):
+         return redirect("/home")
+    else:
+        namep=request.POST['search']
+        projectTitle=projects.objects.filter(title=namep)
+        if projectTitle:
+            return HttpResponseRedirect("/viewProjects/" + projectTitle.title)
+        else :
+            Tagproject = TagProject.objects.filter(tags=namep)
+            if Tagproject :
+                context={}
+                context['Tagprojects']=Tagproject
+                return render(request,'projectTage.html',context)
+            else:
+                return render(request,'notfound.html')
+
+
+
+
+def projectCategorie(request,name):
+    if (request.session.get('username') != None):
+        project = projects.objects.filter(category=name)
+        context={}
+        context['projects'] = project
+        return render(request, 'categories.html',context)
     else:
         return redirect("/logout")
 
@@ -262,3 +295,16 @@ def cancel(request, title):
         return HttpResponseRedirect("/home")
     else:
         return HttpResponse("can not delete")
+def highestRate(request):
+    highestRate = projects.objects.all().order_by('Rating')[:5]
+    # highestRate = projects.objects.filter(
+    #    avg_rate__gte =projects.objects.order_by('avg_rate')[4].avg_rate
+    #  ).order_by('avg_rate')
+    context = {}
+    context['projects'] = highestRate
+    return render(request, 'home.html', context)
+# def maxhighestRate(request):
+#     maxhighestRate = projects.objects.all().aggregate(max("avg_rate"))[:5]
+#
+#     print(maxhighestRate)
+#     return render(request, 'home.html', {'highestRate':highestRate})

@@ -37,6 +37,7 @@ class projects(models.Model):
     create = models.CharField(max_length=20, null=False)
     Rating = models.IntegerField(default=0)
     donations = models.IntegerField(default=0)
+    avg_rate = models.FloatField(default=0)
 
 
 class Comment(models.Model):
